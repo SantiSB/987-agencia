@@ -76,18 +76,19 @@ function PlanCard({ plan }: { plan: BootcampPlan }) {
         ))}
       </ul>
 
+      {/* Purchase CTA — deliberately loud (both plans) and routed to PassTix. */}
       <a
         href={checkoutUrl(plan.id)}
         target="_blank"
         rel="noopener noreferrer"
-        className={cn(
-          'mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-pill px-8 font-sans text-base font-semibold uppercase tracking-wide transition-all duration-200 ease-out active:scale-[0.98]',
-          featured
-            ? 'bg-bootcamp-yellow text-bootcamp-black hover:bg-bootcamp-yellow-600'
-            : 'border border-bootcamp-white/40 text-bootcamp-white hover:bg-bootcamp-white hover:text-bootcamp-black',
-        )}
+        className="group mt-8 inline-flex min-h-[58px] items-center justify-center gap-2 rounded-pill bg-bootcamp-yellow px-8 font-sans text-base font-bold uppercase tracking-wide text-bootcamp-black shadow-glow-yellow transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-bootcamp-yellow-600 active:translate-y-0 active:scale-[0.98]"
       >
         Comprar entrada {plan.nombre}
+        <Icon
+          name="arrowRight"
+          size={18}
+          className="transition-transform duration-200 group-hover:translate-x-1"
+        />
       </a>
       <p className="mt-3 text-center text-xs text-bootcamp-muted-dark">
         {urgencia.avisoSubidaPrecio}

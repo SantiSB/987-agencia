@@ -8,6 +8,9 @@ import { Icon } from '@/components/primitives/Icon';
 import { site } from '@/config/site';
 
 const year = new Date().getFullYear();
+// Optional per-page credit line (e.g. PassTix on /bootcamp). Only rendered when
+// a page passes the `credit` slot, so the home footer stays untouched.
+const hasCredit = Astro.slots.has('credit');
 ---
 
 <footer class="bg-ink text-bone-100">
@@ -78,5 +81,13 @@ const year = new Date().getFullYear();
       <p>© {year} {site.brand.name}. {site.brand.city}.</p>
       <p class="font-accent text-sm italic text-bone-100">{site.brand.solution}</p>
     </div>
+
+    {
+      hasCredit && (
+        <div class="mt-6 border-t border-ink-600 pt-6 text-center text-xs text-bone-300">
+          <slot name="credit" />
+        </div>
+      )
+    }
   </Container>
 </footer>

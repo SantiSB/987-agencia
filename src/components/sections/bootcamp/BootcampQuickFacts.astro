@@ -14,8 +14,15 @@ const { quickFacts } = site.bootcamp;
   <Container>
     <dl class="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-bootcamp-line bg-bootcamp-line md:grid-cols-5">
       {
-        quickFacts.map((fact) => (
-          <div class="flex flex-col gap-1 bg-bootcamp-black px-5 py-6">
+        quickFacts.map((fact, i) => (
+          <div
+            class:list={[
+              'flex flex-col gap-1 bg-bootcamp-black px-5 py-6',
+              // Last item spans the full width on the 2-col layout so there is
+              // no empty trailing cell (5 items → even rows). One row on md.
+              i === quickFacts.length - 1 && 'col-span-2 md:col-span-1',
+            ]}
+          >
             <dt class="font-sans text-xs uppercase tracking-[0.18em] text-bootcamp-muted-dark">
               {fact.label}
             </dt>

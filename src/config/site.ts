@@ -145,13 +145,12 @@ export const site = {
       fechaCierrePreventa: '2026-08-15T23:59:59-05:00',
       cuposEarlyBird: 40, // se muestra SOLO el total, nunca "40 de 40"
       etiquetaEscasez: '40 cupos a precio de preventa',
-      avisoSubidaPrecio: 'El 15 de agosto el precio sube a $210.000',
+      avisoSubidaPrecio: 'El 15 de agosto suben los precios de preventa',
     },
     autoridad: {
       stat: '73%',
       statTexto:
-        'de las pymes que usan IA y contenido con estrategia reportan más ventas en menos de un año.',
-      statFuente: 'Fuente por confirmar', // TODO: verificar cita real antes de publicar
+        'De las pymes que usan IA y contenido con estrategia reportan más ventas en menos de un año.',
       encuadre: 'Este bootcamp es para quien ya entendió que publicar por publicar no vende.',
     },
     promise: {
@@ -215,8 +214,8 @@ export const site = {
           icon: 'mapPin',
         },
         {
-          title: 'Kit de Arranque 978',
-          text: 'Te llevas un kit físico + digital para aplicar todo desde el día siguiente.',
+          title: 'Certificado de asistencia',
+          text: 'Te llevas un certificado que avala tu participación en el bootcamp.',
           icon: 'check',
         },
       ],
@@ -314,7 +313,7 @@ export const site = {
         id: 'general',
         nombre: 'GENERAL',
         destacado: false,
-        precioAncla: 210000, // precio después de preventa
+        precioAncla: 285000, // precio después de preventa (≈ 43% dto. sobre el preventa)
         precioActual: 162000,
         etiqueta: 'PREVENTA',
         beneficios: [
@@ -333,7 +332,7 @@ export const site = {
         nombre: 'VIP',
         destacado: true,
         badge: 'RECOMENDADO',
-        precioAncla: 290000,
+        precioAncla: 590000, // precio después de preventa (≈ 62% dto. sobre el preventa)
         precioActual: 225000,
         etiqueta: 'PREVENTA',
         cuposLimitados: 20,

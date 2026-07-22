@@ -55,7 +55,20 @@ const { pricing } = bootcamp;
     <PricingBlock client:visible id="precios-final" heading={pricing.heading2} />
     <BootcampClose client:visible />
   </main>
-  <Footer />
+  <Footer>
+    <a
+      slot="credit"
+      href="https://passtix.co"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex flex-wrap items-center justify-center gap-x-1.5 gap-y-1 text-bone-300 transition-colors hover:text-bone-50"
+    >
+      <span>Sitio y venta de entradas por</span>
+      <span class="font-semibold tracking-wide text-bone-50">PassTix</span>
+      <span aria-hidden="true">·</span>
+      <span>tu tiquetera oficial</span>
+    </a>
+  </Footer>
 
   <BootcampStickyCta client:load />
   <BootcampWhatsappFloat client:load />

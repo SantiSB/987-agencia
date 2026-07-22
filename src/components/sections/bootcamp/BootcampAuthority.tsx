@@ -21,9 +21,6 @@ export function BootcampAuthority() {
               {autoridad.statTexto}
             </p>
           </div>
-          <p className="mt-3 text-xs uppercase tracking-[0.14em] text-bootcamp-muted-cream/80">
-            {autoridad.statFuente}
-          </p>
         </Reveal>
 
         <Reveal delay={0.1}>
