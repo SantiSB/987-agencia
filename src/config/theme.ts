@@ -34,6 +34,15 @@ export const colors = {
   },
   gold: '#C4A24B', // secondary accent, minimal use (details / hover)
   muted: '#6C6B63', // secondary text on cream
+  // Bootcamp 978 event sub-brand — black/white/yellow, distinct from the main
+  // rose/cream/black identity per the event brief. Scoped to /bootcamp only.
+  bootcamp: {
+    black: '#0A0A0A',
+    white: '#FFFFFF',
+    yellow: '#F5C518',
+    surface: '#151515',
+    line: '#2A2A2A',
+  },
 } as const;
 
 export const fontFamily = {

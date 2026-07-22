@@ -75,6 +75,8 @@ const ogImage = new URL(image, site.seo.url).href;
         sameAs: site.socials.map((s) => s.href),
       })}
     />
+
+    <slot name="head" />
   </head>
   <body class="min-h-screen bg-bone text-ink antialiased">
     <slot />

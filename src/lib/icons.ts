@@ -15,6 +15,7 @@ export const icons = {
   arrowRight: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M5 12h14', 'M13 6l6 6-6 6'] },
   arrowDown: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M12 5v14', 'M6 13l6 6 6-6'] },
   check: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M20 6 9 17l-5-5'] },
+  chevronDown: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['m6 9 6 6 6-6'] },
   clock: {
     viewBox: '0 0 24 24',
     kind: 'stroke',

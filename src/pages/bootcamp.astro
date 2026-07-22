@@ -1,0 +1,87 @@
+---
+/**
+ * bootcamp.astro — one-pager landing for Bootcamp 978 · Marketing a la Mano.
+ * Uses the event's own black/white/yellow sub-brand (brief §9), distinct from
+ * the site's rose/cream/black identity, sandwiched between the shared
+ * Navbar/Footer for site-wide navigation consistency.
+ *
+ * Island strategy: static Astro sections stay JS-free; interactive ones
+ * (accordion, countdown, form) hydrate on visibility to keep initial JS light.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { Navbar } from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer.astro';
+import BootcampHero from '@/components/sections/bootcamp/BootcampHero.astro';
+import { BootcampPromise } from '@/components/sections/bootcamp/BootcampPromise';
+import { BootcampAudience } from '@/components/sections/bootcamp/BootcampAudience';
+import { BootcampExperience } from '@/components/sections/bootcamp/BootcampExperience';
+import { BootcampCurriculum } from '@/components/sections/bootcamp/BootcampCurriculum';
+import { BootcampTeam } from '@/components/sections/bootcamp/BootcampTeam';
+import { BootcampPricing } from '@/components/sections/bootcamp/BootcampPricing';
+import BootcampLogistics from '@/components/sections/bootcamp/BootcampLogistics.astro';
+import { BootcampFaq } from '@/components/sections/bootcamp/BootcampFaq';
+import { BootcampForm } from '@/components/sections/bootcamp/BootcampForm';
+import { BootcampStickyCta } from '@/components/sections/bootcamp/BootcampStickyCta';
+import { BootcampWhatsappFloat } from '@/components/sections/bootcamp/BootcampWhatsappFloat';
+import { site } from '@/config/site';
+
+const { bootcamp } = site;
+const { event, pricing } = bootcamp;
+
+const eventJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: event.name,
+  description: bootcamp.seo.description,
+  startDate: event.dateISO,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: {
+    '@type': 'Place',
+    name: event.venue,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: event.city,
+      addressRegion: 'Nariño',
+      addressCountry: 'CO',
+    },
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: site.brand.name,
+    url: site.seo.url,
+  },
+  offers: pricing.plans.map((plan) => ({
+    '@type': 'Offer',
+    name: `${event.name} · ${plan.name}`,
+    price: plan.preventaPrice,
+    priceCurrency: 'COP',
+    availability: 'https://schema.org/InStock',
+    validFrom: '2026-01-01',
+  })),
+};
+---
+
+<BaseLayout title={bootcamp.seo.title} description={bootcamp.seo.description}>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(eventJsonLd)} />
+  </Fragment>
+
+  <Navbar client:load dark />
+  <main id="contenido">
+    <BootcampHero />
+    <BootcampPromise client:visible />
+    <BootcampAudience client:visible />
+    <BootcampExperience client:visible />
+    <BootcampCurriculum client:visible />
+    <BootcampTeam client:visible />
+    <BootcampPricing client:visible />
+    <BootcampLogistics />
+    <BootcampFaq client:visible />
+    <BootcampForm client:visible />
+  </main>
+  <Footer />
+
+  <BootcampStickyCta client:load />
+  <BootcampWhatsappFloat client:load />
+</BaseLayout>

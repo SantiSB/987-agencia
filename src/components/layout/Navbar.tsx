@@ -4,15 +4,25 @@ import { site, WHATSAPP_URL } from '@/config/site';
 import { Button } from '@/components/primitives/Button';
 import { cn } from '@/lib/utils';
 
+interface NavbarProps {
+  /**
+   * Renders light-on-dark text before the page is scrolled, for pages whose
+   * hero sits on a dark background (e.g. /bootcamp). Once scrolled, the bar
+   * always gets its bone/blur backdrop, so ink text is correct regardless.
+   */
+  dark?: boolean;
+}
+
 /**
  * Navbar — fixed, translucent header that gains a blurred background once the
  * page is scrolled. Includes an accessible mobile menu (focus-trappable list,
  * Escape to close, aria-expanded). Logo + nav links + magenta WhatsApp CTA.
  */
-export function Navbar() {
+export function Navbar({ dark = false }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const onDark = dark && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -47,14 +57,24 @@ export function Navbar() {
       >
         {/* Logo lockup */}
         <a
-          href="#inicio"
+          href="/"
           className="group flex items-baseline gap-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           aria-label={`${site.brand.name} — inicio`}
         >
-          <span className="font-display text-2xl leading-none tracking-tight text-ink md:text-3xl">
+          <span
+            className={cn(
+              'font-display text-2xl leading-none tracking-tight md:text-3xl',
+              onDark ? 'text-bone-50' : 'text-ink',
+            )}
+          >
             978
           </span>
-          <span className="font-sans text-[0.65rem] uppercase tracking-[0.2em] text-muted transition-colors group-hover:text-accent">
+          <span
+            className={cn(
+              'font-sans text-[0.65rem] uppercase tracking-[0.2em] transition-colors group-hover:text-accent',
+              onDark ? 'text-bone-300' : 'text-muted',
+            )}
+          >
             Agencia
           </span>
         </a>
@@ -65,7 +85,10 @@ export function Navbar() {
             <li key={item.href}>
               <a
                 href={item.href}
-                className="relative font-sans text-sm font-medium text-ink transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-200 hover:text-accent hover:after:w-full"
+                className={cn(
+                  'relative font-sans text-sm font-medium transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-200 hover:text-accent hover:after:w-full',
+                  onDark ? 'text-bone-50' : 'text-ink',
+                )}
               >
                 {item.label}
               </a>
@@ -82,7 +105,10 @@ export function Navbar() {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="flex h-11 w-11 items-center justify-center rounded-sm text-ink md:hidden"
+          className={cn(
+            'flex h-11 w-11 items-center justify-center rounded-sm md:hidden',
+            onDark && !open ? 'text-bone-50' : 'text-ink',
+          )}
           aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -91,19 +117,22 @@ export function Navbar() {
           <span className="relative block h-4 w-6">
             <span
               className={cn(
-                'absolute left-0 h-[2px] w-6 bg-ink transition-all duration-300',
+                'absolute left-0 h-[2px] w-6 transition-all duration-300',
+                onDark && !open ? 'bg-bone-50' : 'bg-ink',
                 open ? 'top-1/2 rotate-45' : 'top-0',
               )}
             />
             <span
               className={cn(
-                'absolute left-0 top-1/2 h-[2px] w-6 -translate-y-1/2 bg-ink transition-opacity duration-200',
+                'absolute left-0 top-1/2 h-[2px] w-6 -translate-y-1/2 transition-opacity duration-200',
+                onDark && !open ? 'bg-bone-50' : 'bg-ink',
                 open && 'opacity-0',
               )}
             />
             <span
               className={cn(
-                'absolute left-0 h-[2px] w-6 bg-ink transition-all duration-300',
+                'absolute left-0 h-[2px] w-6 transition-all duration-300',
+                onDark && !open ? 'bg-bone-50' : 'bg-ink',
                 open ? 'top-1/2 -rotate-45' : 'bottom-0',
               )}
             />
