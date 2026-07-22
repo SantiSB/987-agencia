@@ -1,0 +1,31 @@
+---
+/**
+ * index.astro — composes the landing page in order.
+ *
+ * Island strategy:
+ *  - Navbar        → client:load    (needs scroll state immediately)
+ *  - Hero          → static markup + its own client:visible 3D island
+ *  - Manifesto…Contact → client:visible (hydrate their Framer Motion / 3D as
+ *    they scroll into view; keeps initial JS light)
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { Navbar } from '@/components/layout/Navbar';
+import Hero from '@/components/sections/Hero.astro';
+import { Manifesto } from '@/components/sections/Manifesto';
+import { Methodology } from '@/components/sections/Methodology';
+import { About } from '@/components/sections/About';
+import { Contact } from '@/components/sections/Contact';
+import Footer from '@/components/layout/Footer.astro';
+---
+
+<BaseLayout>
+  <Navbar client:load />
+  <main id="contenido">
+    <Hero />
+    <Manifesto client:visible />
+    <Methodology client:visible />
+    <About client:visible />
+    <Contact client:visible />
+  </main>
+  <Footer />
+</BaseLayout>

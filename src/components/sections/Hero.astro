@@ -1,0 +1,72 @@
+---
+/**
+ * Hero (#inicio) — cream stage with the live 3D centerpiece behind an editorial
+ * headline. The headline is plain Astro markup so it paints as the LCP without
+ * waiting on the WebGL bundle. The 3D island hydrates on visibility.
+ */
+import Container from '@/components/primitives/Container.astro';
+import { Button } from '@/components/primitives/Button';
+import { Badge } from '@/components/primitives/Badge';
+import { Boxed } from '@/components/primitives/SectionHeading';
+import { Icon } from '@/components/primitives/Icon';
+import { HeroScene } from '@/components/three/HeroScene';
+import { site } from '@/config/site';
+
+const { hero, brand } = site;
+---
+
+<section id="inicio" class="relative flex min-h-screen items-center overflow-hidden bg-bone">
+  <!-- 3D layer: full-bleed on mobile (faint), right side on desktop -->
+  <div class="absolute inset-0 lg:left-[42%]" aria-hidden="true">
+    <HeroScene client:visible />
+  </div>
+  <!-- Readability wash so the headline stays AA over the canvas -->
+  <div
+    class="pointer-events-none absolute inset-0 bg-gradient-to-b from-bone via-bone/70 to-bone lg:bg-gradient-to-r lg:from-bone lg:via-bone/85 lg:to-transparent"
+  >
+  </div>
+
+  <Container class="relative z-10 flex min-h-screen flex-col justify-center py-28">
+    <div class="max-w-3xl">
+      <Badge tone="accent">{hero.kicker}</Badge>
+
+      <h1
+        class="mt-6 font-display uppercase leading-[0.85] tracking-tight text-ink text-[clamp(3rem,11vw,7.5rem)]"
+      >
+        <span class="block">{hero.titleTop}</span>
+        <span class="my-1 block">
+          <Boxed tone="ink">{hero.titleHighlight}</Boxed>
+        </span>
+        <span class="block">{hero.titleBottom}</span>
+      </h1>
+
+      <p class="mt-6 font-accent text-2xl italic text-accent-600 md:text-3xl">
+        {brand.solution}
+      </p>
+
+      <p class="mt-4 max-w-xl text-base text-muted md:text-lg">
+        {hero.subtitle}
+      </p>
+
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+        <Button href={hero.ctaPrimary.href} size="lg">
+          {hero.ctaPrimary.label}
+          <Icon name="arrowRight" size={18} />
+        </Button>
+        <Button href={hero.ctaSecondary.href} variant="outline" size="lg">
+          {hero.ctaSecondary.label}
+        </Button>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Scroll indicator -->
+  <a
+    href="#metodologia"
+    aria-label="Bajar a la metodología"
+    class="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-accent"
+  >
+    <span class="font-sans text-[0.6rem] uppercase tracking-[0.3em]">Scroll</span>
+    <span class="animate-bounce"><Icon name="arrowDown" size={18} /></span>
+  </a>
+</section>

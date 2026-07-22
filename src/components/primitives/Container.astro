@@ -1,0 +1,16 @@
+---
+/**
+ * Container — max-width wrapper with consistent horizontal gutters.
+ * The one place page width + side padding is defined. Reused everywhere.
+ */
+export interface Props {
+  as?: string;
+  class?: string;
+}
+
+const { as: Tag = 'div', class: className = '' } = Astro.props;
+---
+
+<Tag class={`mx-auto w-full max-w-[80rem] px-6 md:px-10 ${className}`}>
+  <slot />
+</Tag>

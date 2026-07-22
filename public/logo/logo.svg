@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="200" viewBox="0 0 360 200" role="img" aria-label="978 Agencia — Marketing y Publicidad">
+  <!-- PLACEHOLDER lockup. Replace with the official brand asset (see README.md). -->
+  <rect width="360" height="200" fill="#E9E6DD" />
+  <text x="180" y="112" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="120" fill="#0B0B0B" letter-spacing="2">978</text>
+  <text x="180" y="146" text-anchor="middle" font-family="Archivo, Arial, sans-serif" font-size="22" letter-spacing="10" fill="#0B0B0B">AGENCIA</text>
+  <text x="180" y="170" text-anchor="middle" font-family="Archivo, Arial, sans-serif" font-size="11" letter-spacing="4" fill="#6C6B63">MARKETING Y PUBLICIDAD</text>
+  <rect x="150" y="182" width="60" height="6" fill="#E5146E" />
+</svg>

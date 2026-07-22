@@ -1,0 +1,105 @@
+/* global.css — Tailwind v4 entry + design-token CSS variables + base styles.
+ *
+ * Token flow:
+ *   theme.ts ──▶ tailwind.config.ts (utilities: bg-bone, text-ink, …)
+ *            └─▶ :root vars below   (runtime: Three.js materials, dynamic CSS)
+ *
+ * The @config directive below points Tailwind v4 at our classic token config so
+ * theme.ts stays the single source of truth for the utility layer.
+ */
+@import 'tailwindcss';
+@config '../../tailwind.config.ts';
+
+/* ---------------------------------------------------------------------------
+ * CSS custom properties — mirror the values in src/config/theme.ts EXACTLY.
+ * These are the runtime source for the 3D layer (read via getComputedStyle) and
+ * any dynamic styling. If you change a value in theme.ts, mirror it here.
+ * ------------------------------------------------------------------------- */
+:root {
+  /* colors */
+  --color-bone: #e9e6dd;
+  --color-bone-50: #f4f2ec;
+  --color-bone-100: #edebe3;
+  --color-bone-300: #d8d4c7;
+  --color-ink: #0b0b0b;
+  --color-ink-800: #161616;
+  --color-ink-600: #242424;
+  --color-accent: #e5146e;
+  --color-accent-600: #c40e5c;
+  --color-accent-300: #f06ca1;
+  --color-accent-glow: rgba(229, 20, 110, 0.55);
+  --color-gold: #c4a24b;
+  --color-muted: #6c6b63;
+
+  /* typography */
+  --font-display: 'Anton', sans-serif;
+  --font-sans: 'Archivo', system-ui, sans-serif;
+  --font-accent: 'Instrument Serif', Georgia, serif;
+
+  /* rhythm */
+  --space-section: 7rem;
+
+  color-scheme: light dark;
+}
+
+/* ---------------------------------------------------------------------------
+ * Base
+ * ------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fluid display headings lean on Anton — kill the default serif fallback flash. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bone-50);
+}
+
+/* Visible focus ring everywhere — never remove without a replacement. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Respect reduced-motion as a global safety net (Framer Motion also honors it). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Utility: hide scrollbar for marquees while keeping scroll semantics. */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
