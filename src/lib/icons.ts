@@ -15,7 +15,16 @@ export const icons = {
   arrowRight: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M5 12h14', 'M13 6l6 6-6 6'] },
   arrowDown: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M12 5v14', 'M6 13l6 6 6-6'] },
   check: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M20 6 9 17l-5-5'] },
+  close: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['M18 6 6 18', 'M6 6l12 12'] },
   chevronDown: { viewBox: '0 0 24 24', kind: 'stroke', paths: ['m6 9 6 6 6-6'] },
+  play: { viewBox: '0 0 24 24', kind: 'fill', paths: ['M8 5v14l11-7z'] },
+  quote: {
+    viewBox: '0 0 24 24',
+    kind: 'fill',
+    paths: [
+      'M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H5.5A1.67 1.67 0 0 1 7.17 9.5zM18.5 6a5.17 5.17 0 0 0-5.17 5.17V18h6.84v-6.83h-3.34A1.67 1.67 0 0 1 18.5 9.5z',
+    ],
+  },
   clock: {
     viewBox: '0 0 24 24',
     kind: 'stroke',

@@ -1,0 +1,22 @@
+---
+/**
+ * BootcampVideo — "así se vive el Bootcamp 978" video slot, immediately after
+ * the hero. Uses the VideoPlaceholder island until real footage exists.
+ */
+import Container from '@/components/primitives/Container.astro';
+import { VideoPlaceholder } from '@/components/bootcamp/VideoPlaceholder';
+import { site } from '@/config/site';
+
+const { video } = site.bootcamp;
+---
+
+<section class="bg-bootcamp-carbon py-section-sm text-bootcamp-white">
+  <Container class="max-w-4xl">
+    <h2 class="text-center font-display uppercase leading-[0.95] tracking-tight text-[clamp(1.5rem,4.5vw,2.5rem)]">
+      {video.heading}
+    </h2>
+    <div class="mt-8">
+      <VideoPlaceholder client:visible microcopy={video.microcopy} />
+    </div>
+  </Container>
+</section>

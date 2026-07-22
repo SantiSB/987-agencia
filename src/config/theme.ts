@@ -34,14 +34,21 @@ export const colors = {
   },
   gold: '#C4A24B', // secondary accent, minimal use (details / hover)
   muted: '#6C6B63', // secondary text on cream
-  // Bootcamp 978 event sub-brand — black/white/yellow, distinct from the main
-  // rose/cream/black identity per the event brief. Scoped to /bootcamp only.
+  // Bootcamp 978 event sub-brand — deep black / carbon / cream with a yellow
+  // accent, distinct from the main rose/cream/black identity. Backgrounds
+  // alternate black → carbon → cream for rhythm. Scoped to /bootcamp only.
   bootcamp: {
     black: '#0A0A0A',
+    carbon: '#161616', // secondary dark section background
+    surface: '#1C1C1C', // cards on dark
     white: '#FFFFFF',
+    cream: '#E9E6DD', // light section background (shared brand bone)
     yellow: '#F5C518',
-    surface: '#151515',
-    line: '#2A2A2A',
+    'yellow-600': '#D9AC0A', // hover / pressed
+    line: '#2A2A2A', // hairlines on dark
+    'line-cream': '#D8D4C7', // hairlines on cream
+    'muted-dark': '#9A968C', // secondary text on dark
+    'muted-cream': '#6C6B63', // secondary text on cream
   },
 } as const;
 
@@ -71,6 +78,7 @@ export const boxShadow = {
   soft: '0 8px 30px -12px rgba(11,11,11,0.25)',
   card: '0 20px 60px -24px rgba(11,11,11,0.35)',
   'glow-accent': '0 0 0 1px rgba(229,20,110,0.35), 0 12px 40px -8px rgba(229,20,110,0.55)',
+  'glow-yellow': '0 0 0 1px rgba(245,197,24,0.45), 0 16px 50px -12px rgba(245,197,24,0.35)',
 } as const;
 
 /**

@@ -18,7 +18,7 @@ function ModuleRow({
   const buttonId = `modulo-trigger-${module.n}`;
 
   return (
-    <div className="border-t border-bootcamp-line">
+    <div className="border-t border-bootcamp-line last:border-b">
       <h3>
         <button
           type="button"
@@ -26,12 +26,10 @@ function ModuleRow({
           aria-expanded={open}
           aria-controls={panelId}
           onClick={onToggle}
-          className="flex w-full items-center gap-4 py-6 text-left transition-colors hover:text-bootcamp-yellow focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bootcamp-yellow md:gap-6"
+          className="flex w-full items-center gap-4 py-5 text-left transition-colors hover:text-bootcamp-yellow focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bootcamp-yellow md:gap-6"
         >
-          <span className="font-display text-2xl text-bootcamp-yellow md:text-3xl">
-            {module.n}
-          </span>
-          <span className="min-w-0 flex-1 font-display text-lg uppercase leading-tight text-bootcamp-white md:text-2xl">
+          <span className="font-display text-2xl text-bootcamp-yellow md:text-3xl">{module.n}</span>
+          <span className="min-w-0 flex-1 font-display text-base uppercase leading-tight text-bootcamp-white md:text-xl">
             {module.title}
           </span>
           <Icon
@@ -48,7 +46,8 @@ function ModuleRow({
         hidden={!open}
         className="pb-6 pl-[3.25rem] md:pl-[4.5rem]"
       >
-        <p className="text-sm uppercase tracking-[0.16em] text-bootcamp-white/60">
+        <p className="text-sm leading-relaxed text-bootcamp-white/80 md:text-base">{module.desc}</p>
+        <p className="mt-3 text-xs uppercase tracking-[0.16em] text-bootcamp-yellow">
           Con {module.speaker}
         </p>
       </div>
@@ -57,16 +56,16 @@ function ModuleRow({
 }
 
 /**
- * BootcampCurriculum (#temario) — the 8-module syllabus as an accordion
- * (brief §7 recommends this over flat scroll for 8 items). Single-open by
- * default keeps the list scannable; each module names its speaker.
+ * BootcampCurriculum (#temario) — the 8-module syllabus as an accordion.
+ * Descriptions are result-oriented ("saldrás sabiendo…"), and each module
+ * names its speaker. Single-open keeps the long list scannable.
  */
 export function BootcampCurriculum() {
   const { curriculum } = site.bootcamp;
   const [openModule, setOpenModule] = useState<string | null>(curriculum.modules[0]?.n ?? null);
 
   return (
-    <section id="temario" className="bg-bootcamp-surface py-section-sm text-bootcamp-white">
+    <section id="temario" className="scroll-mt-20 bg-bootcamp-carbon py-section-sm text-bootcamp-white">
       <div className="mx-auto w-full max-w-3xl px-6 md:px-10">
         <Reveal className="text-center">
           <span className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-bootcamp-yellow">
@@ -75,7 +74,7 @@ export function BootcampCurriculum() {
           <h2 className="mt-4 font-display uppercase leading-[0.95] tracking-tight text-[clamp(1.75rem,5vw,3rem)]">
             {curriculum.heading}
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-base text-bootcamp-white/70">
+          <p className="mx-auto mt-4 max-w-lg text-base text-bootcamp-muted-dark">
             {curriculum.lead}
           </p>
         </Reveal>

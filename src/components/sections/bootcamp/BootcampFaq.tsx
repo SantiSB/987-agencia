@@ -41,7 +41,7 @@ export function BootcampFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-bootcamp-black py-section-sm text-bootcamp-white">
+    <section className="bg-bootcamp-carbon py-section-sm text-bootcamp-white">
       <div className="mx-auto w-full max-w-2xl px-6 md:px-10">
         <Reveal className="text-center">
           <h2 className="font-display uppercase leading-[0.95] tracking-tight text-[clamp(1.75rem,5vw,3rem)]">

@@ -1,28 +1,26 @@
 ---
 /**
- * BootcampHero (#inicio) — event sub-brand stage: black background, yellow
- * accent, editorial Anton display type. Plain Astro markup (no client JS) so
- * it paints immediately as the LCP. Preventa badge + seats/date facts are
- * computed server-side from src/lib/bootcamp.ts so the page never flashes
- * stale state.
+ * BootcampHero (#inicio) — conversion hero on the event's black/yellow
+ * sub-brand. Loss-aversion copy (hook + subhook), a compact preventa countdown
+ * and a micro-trust line under the CTAs. The headline is plain Astro markup so
+ * it paints as the LCP; the countdown hydrates as an island.
  */
 import Container from '@/components/primitives/Container.astro';
 import { Button } from '@/components/primitives/Button';
+import { Boxed } from '@/components/primitives/SectionHeading';
 import { Icon } from '@/components/primitives/Icon';
+import { CountdownTimer } from '@/components/bootcamp/CountdownTimer';
 import { site } from '@/config/site';
-import { getPreventaStatus } from '@/lib/bootcamp';
 
-const { event, hero } = site.bootcamp;
-const preventa = getPreventaStatus();
+const { hero, urgencia } = site.bootcamp;
 ---
 
 <section
   id="inicio"
   class="relative overflow-hidden bg-bootcamp-black pb-20 pt-32 text-bootcamp-white md:pb-28 md:pt-40"
 >
-  <!-- Soft spotlight glow, matches the brand's event key art -->
   <div
-    class="pointer-events-none absolute inset-x-0 top-0 h-[32rem] bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,rgba(245,197,24,0.18),transparent)]"
+    class="pointer-events-none absolute inset-x-0 top-0 h-[34rem] bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,var(--color-bootcamp-glow),transparent)]"
     aria-hidden="true"
   >
   </div>
@@ -33,36 +31,48 @@ const preventa = getPreventaStatus();
       <span>Emprender</span>
     </div>
 
-    <div class="mx-auto mt-14 max-w-4xl text-center">
+    <div class="mx-auto mt-12 max-w-4xl text-center">
       <span
         class="inline-flex items-center gap-2 rounded-sm border border-bootcamp-yellow/50 px-3 py-1 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-bootcamp-yellow"
       >
-        {preventa.active ? hero.kicker : 'Inscripciones abiertas'}
+        {hero.badge}
       </span>
 
       <p class="mt-6 font-sans text-sm uppercase tracking-[0.3em] text-bootcamp-white/70">
-        {event.tagline}
+        {hero.kicker}
       </p>
 
-      <h1
-        class="mt-4 font-display uppercase leading-[0.88] tracking-tight text-[clamp(3rem,12vw,7rem)]"
-      >
-        <span class="block">{event.name}</span>
+      <h1 class="mt-4 font-display uppercase leading-[0.88] tracking-tight text-[clamp(3rem,12vw,7rem)]">
+        {hero.title}
       </h1>
 
       <p class="mt-6 font-accent text-2xl italic text-bootcamp-yellow md:text-3xl">
-        {event.slogan}
+        {hero.accent}
+      </p>
+
+      <!-- Brand hook — boxed framing line -->
+      <p class="mt-8 font-display text-xl uppercase leading-tight tracking-tight md:text-2xl">
+        <Boxed tone="accent" className="bg-bootcamp-yellow text-bootcamp-black">{hero.hook}</Boxed>
       </p>
 
       <p class="mx-auto mt-6 max-w-xl text-base text-bootcamp-white/70 md:text-lg">
-        {hero.subtitle}
+        {hero.subhook}
       </p>
 
-      <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <div class="mt-9">
+        <CountdownTimer
+          client:load
+          targetDate={urgencia.fechaCierrePreventa}
+          variant="compacto"
+          label={hero.countdownLabel}
+        />
+      </div>
+
+      <div class="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
         <Button
           href={hero.ctaPrimary.href}
           size="lg"
-          className="bg-bootcamp-yellow text-bootcamp-black hover:bg-bootcamp-yellow hover:opacity-90 hover:shadow-none"
+          className="bg-bootcamp-yellow text-bootcamp-black hover:bg-bootcamp-yellow-600 hover:shadow-none"
         >
           {hero.ctaPrimary.label}
           <Icon name="arrowRight" size={18} />
@@ -76,29 +86,10 @@ const preventa = getPreventaStatus();
           {hero.ctaSecondary.label}
         </Button>
       </div>
-    </div>
 
-    <!-- Facts row -->
-    <dl
-      class="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-bootcamp-line bg-bootcamp-line md:mt-20 md:grid-cols-4"
-    >
-      {
-        [
-          { label: 'Fecha', value: event.dateLabel },
-          { label: 'Horario', value: event.timeLabel },
-          { label: 'Lugar', value: `${event.venue}, ${event.city}` },
-          { label: 'Cupos', value: `${event.totalSeats} en total` },
-        ].map((fact) => (
-          <div class="flex flex-col gap-1 bg-bootcamp-black px-5 py-6">
-            <dt class="font-sans text-xs uppercase tracking-[0.18em] text-bootcamp-white/60">
-              {fact.label}
-            </dt>
-            <dd class="font-display text-xl uppercase leading-none text-bootcamp-white md:text-2xl">
-              {fact.value}
-            </dd>
-          </div>
-        ))
-      }
-    </dl>
+      <p class="mt-6 text-xs uppercase tracking-[0.16em] text-bootcamp-white/50">
+        {hero.microConfianza}
+      </p>
+    </div>
   </Container>
 </section>

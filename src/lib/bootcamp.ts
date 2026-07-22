@@ -1,42 +1,44 @@
 import { site, WHATSAPP_URL } from '@/config/site';
 import type { BootcampPlan } from '@/config/site';
 
-export interface PreventaStatus {
-  /** True while preventa pricing still applies (deadline not passed AND early-bird seats left). */
-  active: boolean;
-  /** Seats left out of the event's total capacity. */
-  seatsRemaining: number;
-  /** Seats left out of the early-bird allotment. */
-  earlyBirdSeatsRemaining: number;
-  deadlinePassed: boolean;
-  earlyBirdSoldOut: boolean;
+/**
+ * bootcamp.ts — business logic for the /bootcamp landing, kept out of the UI
+ * components. Handles the preventa window, price anchoring/savings math, the
+ * countdown, and the PassTix checkout / WhatsApp-question deep links.
+ */
+
+/** Preventa is active until the cutoff date passes. Seat counts are never exposed as "X of X". */
+export function isPreventaActive(now: Date = new Date()): boolean {
+  const deadline = new Date(site.bootcamp.urgencia.fechaCierrePreventa);
+  return now.getTime() < deadline.getTime();
+}
+
+export interface PlanPricing {
+  /** Price the buyer pays now. */
+  current: number;
+  /** Anchor (post-preventa) price shown struck through. */
+  anchor: number;
+  /** Absolute saving vs. the anchor. */
+  savingsAbs: number;
+  /** Rounded percentage saving vs. the anchor. */
+  savingsPct: number;
+  preventaActive: boolean;
 }
 
 /**
- * Preventa closes on whichever comes first: the deadline date or the 40
- * early-bird seats selling out (brief §3). `soldSeats` is the single source
- * for both counters until the CRM/payment integration in the brief's
- * pending items (§11–12) ships.
+ * Resolves what to display for a plan. The anchor is the real post-preventa
+ * price (not an invented one), so the discount stays defensible under
+ * Colombia's Ley 1480 (Estatuto del Consumidor).
  */
-export function getPreventaStatus(now: Date = new Date()): PreventaStatus {
-  const { event } = site.bootcamp;
-  const deadline = new Date(event.preventaDeadlineISO);
-  const deadlinePassed = now.getTime() >= deadline.getTime();
-  const earlyBirdSeatsRemaining = Math.max(event.earlyBirdSeats - event.soldSeats, 0);
-  const earlyBirdSoldOut = earlyBirdSeatsRemaining === 0;
-  const seatsRemaining = Math.max(event.totalSeats - event.soldSeats, 0);
-
-  return {
-    active: !deadlinePassed && !earlyBirdSoldOut,
-    seatsRemaining,
-    earlyBirdSeatsRemaining,
-    deadlinePassed,
-    earlyBirdSoldOut,
-  };
-}
-
-export function priceForPlan(plan: Pick<BootcampPlan, 'regularPrice' | 'preventaPrice'>, preventaActive: boolean): number {
-  return preventaActive ? plan.preventaPrice : plan.regularPrice;
+export function getPlanPricing(
+  plan: Pick<BootcampPlan, 'precioAncla' | 'precioActual'>,
+  now: Date = new Date(),
+): PlanPricing {
+  const preventaActive = isPreventaActive(now);
+  const current = preventaActive ? plan.precioActual : plan.precioAncla;
+  const savingsAbs = Math.max(plan.precioAncla - current, 0);
+  const savingsPct = plan.precioAncla > 0 ? Math.round((savingsAbs / plan.precioAncla) * 100) : 0;
+  return { current, anchor: plan.precioAncla, savingsAbs, savingsPct, preventaActive };
 }
 
 export function formatCOP(amount: number): string {
@@ -45,6 +47,11 @@ export function formatCOP(amount: number): string {
     currency: 'COP',
     maximumFractionDigits: 0,
   }).format(amount);
+}
+
+/** Sum of the value-stack items — the honest anchor for the ValueStack close. */
+export function totalValorStack(): number {
+  return site.bootcamp.valorStack.items.reduce((sum, i) => sum + i.valor, 0);
 }
 
 export interface CountdownParts {
@@ -64,8 +71,18 @@ export function getCountdown(targetISO: string, now: Date = new Date()): Countdo
   return { days, hours, minutes, seconds, totalMs };
 }
 
-/** WhatsApp deep-link pre-filled with an enrollment message for a given plan. */
-export function whatsappEnrollUrl(planName: string): string {
-  const message = `Hola, quiero inscribirme al plan ${planName} del Bootcamp 978 (Marketing a la Mano).`;
+/** PassTix checkout URL for a plan id (payment happens on PassTix / Bold). */
+export function checkoutUrl(planId: string): string {
+  const { checkout } = site.bootcamp;
+  return planId === 'vip' ? checkout.vip : checkout.general;
+}
+
+/**
+ * WhatsApp deep-link for INFORMATION only (buying happens on PassTix). The
+ * pre-filled message is a question, never an enrollment.
+ */
+export function whatsappQuestionUrl(topic?: string): string {
+  const base = 'Hola, tengo una pregunta sobre el Bootcamp 978';
+  const message = topic ? `${base}: ${topic}` : `${base}.`;
   return `${WHATSAPP_URL}?text=${encodeURIComponent(message)}`;
 }
