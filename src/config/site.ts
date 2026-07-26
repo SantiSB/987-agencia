@@ -402,8 +402,8 @@ export const site = {
     },
     checkout: {
       // TODO: reemplazar con URLs reales de PassTix
-      general: 'https://passtix.co/PLACEHOLDER-GENERAL',
-      vip: 'https://passtix.co/PLACEHOLDER-VIP',
+      general: 'https://passtix.co/eventos-bootcamp-978',
+      vip: 'https://passtix.co/eventos-bootcamp-978',
     },
     pagos: ['Visa', 'Mastercard', 'American Express', 'PSE', 'Nequi', 'Bancolombia'],
     pagosNota: 'Pago seguro procesado por PassTix · Pasarela Bold',
