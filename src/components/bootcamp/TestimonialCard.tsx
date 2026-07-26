@@ -35,6 +35,7 @@ export function TestimonialCard({ testimonio }: TestimonialCardProps) {
             width={48}
             height={48}
             loading="lazy"
+            decoding="async"
             className="h-12 w-12 rounded-pill object-cover"
           />
         ) : (

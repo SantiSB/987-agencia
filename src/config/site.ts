@@ -15,9 +15,7 @@ export const site = {
   nav: [
     { label: 'Inicio', href: '/#inicio' },
     { label: 'Metodología', href: '/#metodologia' },
-    { label: 'Nosotros', href: '/#nosotros' },
     { label: 'Bootcamp', href: '/bootcamp' },
-    { label: 'Contacto', href: '/#contacto' },
   ],
   hero: {
     kicker: '2026 · EMPRENDER',
@@ -26,7 +24,9 @@ export const site = {
     titleBottom: 'CONSTRUIMOS RESULTADOS',
     subtitle:
       'En 978 no empezamos preguntando ¿cuántos posts quieres al mes? Empezamos por: ¿qué quieres lograr con tu marca?',
-    ctaPrimary: { label: 'Quiero resultados', href: '#contacto' },
+    // ctaPrimary links straight to WhatsApp (Hero.astro), not an in-page anchor —
+    // there's no contact form/section on the homepage anymore.
+    ctaPrimary: { label: 'Quiero resultados' },
     ctaSecondary: { label: 'Ver metodología', href: '#metodologia' },
   },
   manifesto: {
@@ -41,60 +41,38 @@ export const site = {
         n: '01',
         title: 'Estrategia real, no improvisación',
         text: 'Nada de publicar por publicar. Todo responde a un objetivo claro.',
-        icon: 'puzzle',
       },
       {
         n: '02',
         title: 'Contenido que vende',
         text: 'No solo se ve bien: está pensado para atraer, conectar y convertir.',
-        icon: 'tag',
       },
       {
         n: '03',
         title: 'Resultados medibles',
         text: 'Sabes qué funciona, qué no y cómo escalar sin perder dinero.',
-        icon: 'chart',
-      },
-    ],
-  },
-  about: {
-    heading: '¿Quiénes somos?',
-    text: 'Somos un equipo apasionado por crear, contar historias y dar vida a cada idea. Nos mueve la creatividad, la autenticidad y las ganas de ayudar a cada marca a conectar de verdad con su audiencia a través de contenido que inspira, impacta y genera resultados.',
-    team: [
-      {
-        name: 'Paola',
-        role: 'Fundadora & Coordinadora',
-        bio: 'Lidero cada proyecto con visión creativa y estratégica, transformando ideas en contenido que conecta, inspira y genera resultados.',
-      },
-      {
-        name: 'Equipo Diseño',
-        role: 'Dirección de Arte & Diseño',
-        bio: 'Damos forma visual a cada marca: identidad, piezas y sistemas gráficos coherentes que se reconocen a primera vista.',
-      },
-      {
-        name: 'Equipo Audiovisual',
-        role: 'Producción & Video',
-        bio: 'Grabamos, editamos y contamos historias en movimiento pensadas para detener el scroll y quedarse en la memoria.',
-      },
-      {
-        name: 'Equipo Community',
-        role: 'Community & Estrategia',
-        bio: 'Escuchamos a la comunidad, medimos lo que importa y convertimos conversaciones en oportunidades reales de negocio.',
       },
     ],
   },
   contact: {
-    heading: '¿Listos para construir resultados?',
     whatsapp: '+57 320 3079825',
-    hours: 'Lun a Sáb · 8:00 a. m. – 6:00 p. m.',
-    instagram: '@978_agencia',
     location: 'Pasto – Nariño – Colombia',
+  },
+  /** Homepage promo banner (§Hero secundario) for the Bootcamp 978 event — links out to /bootcamp. */
+  bootcampPromo: {
+    badge: 'PREVENTA ACTIVA',
+    kicker: 'EVENTO EN VIVO · PASTO',
+    title: 'BOOTCAMP 978',
+    accent: 'Marketing a la Mano',
+    subtitle: 'Un día de inmersión práctica en marketing, contenido e IA. 6 de septiembre en Hotel V1501, Pasto.',
+    cta: { label: 'Ver el Bootcamp', href: '/bootcamp' },
   },
   bootcamp: {
     seo: {
       title: 'Bootcamp 978 · Marketing a la Mano — 6 de septiembre en Pasto',
       description:
         'Aprende hoy, aplica mañana. Un día de inmersión práctica en marketing, contenido e IA en Pasto. Cupos limitados, preventa activa.',
+      ogImage: '/flyer/og-bootcamp.jpg',
     },
     event: {
       name: 'Bootcamp 978',
@@ -131,7 +109,8 @@ export const site = {
     },
     video: {
       heading: 'Así se vive el Bootcamp 978',
-      microcopy: 'Video del evento — próximamente', // TODO: reemplazar con video real del cliente
+      src: '/video/bootcamp-video.mp4',
+      poster: '/video/poster.webp',
     },
     // Quick-facts strip below the hero. "Cupos" shows the scarcity label, never "X de X".
     quickFacts: [
@@ -221,7 +200,7 @@ export const site = {
       ],
     },
     curriculum: {
-      heading: 'Temario · 8 módulos',
+      heading: 'Temario · 6 módulos',
       lead: 'De la estrategia de marca a la ejecución con IA, diseño, edición y voz.',
       // desc: orientadas a resultado ("saldrás sabiendo hacer X"), no a temario académico.
       // TODO: validar descripciones de módulos con cliente
@@ -241,37 +220,25 @@ export const site = {
         {
           n: '03',
           title: 'Manejo Básico de Inteligencia Artificial',
-          speaker: 'Santiago',
+          speaker: 'Santiago Rivera',
           desc: 'Usarás herramientas de IA para producir más y mejor contenido en menos tiempo.',
         },
         {
           n: '04',
-          title: 'Copywriting con IA',
-          speaker: 'Santiago y Paola Santacruz',
-          desc: 'Escribirás textos y captions que conectan y mueven a la acción, apoyándote en IA.',
-        },
-        {
-          n: '05',
           title: 'Canva',
-          speaker: 'Francy',
+          speaker: 'Francy Vallejo',
           desc: 'Diseñarás piezas profesionales desde cero, sin depender de un diseñador.',
         },
         {
-          n: '06',
-          title: 'Edición Básica',
-          speaker: 'David',
-          desc: 'Editarás tus propios videos con ritmo y limpieza pensados para redes.',
-        },
-        {
-          n: '07',
+          n: '05',
           title: 'Intención al Editar y Programas de Edición',
-          speaker: 'David',
+          speaker: 'David Ordóñez',
           desc: 'Sabrás qué software usar y cómo editar con intención narrativa, no solo cortar.',
         },
         {
-          n: '08',
+          n: '06',
           title: 'Cómo Modular tu Voz',
-          speaker: 'María José',
+          speaker: 'María José Martínez',
           desc: 'Hablarás frente a cámara con seguridad y una voz que retiene la atención.',
         },
       ],
@@ -281,26 +248,12 @@ export const site = {
       valorRealLabel: 'Valor real',
       inversionLabel: 'Tu inversión en preventa',
       items: [
-        { item: '8 módulos con 5 especialistas', valor: 380000 },
+        { item: '6 módulos con 5 especialistas', valor: 380000 },
         { item: 'Asesoría privada de seguimiento (VIP)', valor: 150000 },
         { item: 'Kit de herramientas 978', valor: 90000 },
         { item: 'Acceso a la comunidad de egresados', valor: 70000 },
       ], // TODO: confirmar valores con cliente
     },
-    bonos: [
-      {
-        etiqueta: 'BONUS 01',
-        titulo: 'Kit de Arranque 978',
-        desc: 'Contenido por definir con cliente', // TODO: confirmar con cliente
-        valor: 90000,
-      },
-      {
-        etiqueta: 'BONUS 02',
-        titulo: 'Bono por definir', // TODO: confirmar con cliente
-        desc: 'Contenido por definir con cliente', // TODO: confirmar con cliente
-        valor: 0,
-      },
-    ],
     pricing: {
       heading1: 'Asegura tu cupo en preventa',
       heading2: 'Última llamada de preventa',
@@ -317,7 +270,7 @@ export const site = {
         precioActual: 162000,
         etiqueta: 'PREVENTA',
         beneficios: [
-          'Acceso completo a los 8 módulos del bootcamp',
+          'Acceso completo a los 6 módulos del bootcamp',
           'Jornada de 8 horas con 5 especialistas en vivo',
           'Casos reales de marcas que ya están vendiendo',
           'Espacio de preguntas directo con cada conferencista',
@@ -347,29 +300,31 @@ export const site = {
       },
     ],
     pruebaSocial: {
-      metricasHeading: 'Detrás del bootcamp está 978 Agencia',
       testimoniosHeading: 'Lo que dicen de nosotros',
-      galeriaHeading: 'Eventos y sesiones 978',
     },
-    metricas: [
-      { valor: 'PLACEHOLDER', label: 'Marcas acompañadas' }, // TODO: cifra real del cliente
-      { valor: 'PLACEHOLDER', label: 'Años de experiencia' }, // TODO: cifra real del cliente
-      { valor: 'PLACEHOLDER', label: 'Proyectos entregados' }, // TODO: cifra real del cliente
-      { valor: '5', label: 'Especialistas en el equipo' },
-    ],
     testimonios: [
-      { nombre: 'PLACEHOLDER', rol: 'PLACEHOLDER', texto: 'PLACEHOLDER', foto: null }, // TODO: testimonio real
-      { nombre: 'PLACEHOLDER', rol: 'PLACEHOLDER', texto: 'PLACEHOLDER', foto: null }, // TODO: testimonio real
-      { nombre: 'PLACEHOLDER', rol: 'PLACEHOLDER', texto: 'PLACEHOLDER', foto: null }, // TODO: testimonio real
-    ],
-    galeria: [
-      { alt: 'Evento 978 — foto 1', foto: null }, // TODO: foto real
-      { alt: 'Evento 978 — foto 2', foto: null }, // TODO: foto real
-      { alt: 'Evento 978 — foto 3', foto: null }, // TODO: foto real
-      { alt: 'Evento 978 — foto 4', foto: null }, // TODO: foto real
-      { alt: 'Evento 978 — foto 5', foto: null }, // TODO: foto real
-      { alt: 'Evento 978 — foto 6', foto: null }, // TODO: foto real
-    ],
+      {
+        nombre: '@andresmenau',
+        rol: 'Instagram',
+        texto:
+          'Gran evento. Gracias por estas creaciones que abren las puertas a un gran movimiento de tendencias digitales en la ciudad. 🙌🔥 Crack!!',
+        foto: '/testimonios/andresmenau.webp',
+      },
+      {
+        nombre: '@paisalejo',
+        rol: 'Instagram',
+        texto:
+          'Pao, como te lo dije y lo repito: me quito el sombrero ante lo que hiciste. Tenés una visión tremenda de las cosas y este evento solo va a traer cosas buenas para ti y la ciudad. Felicitaciones y gracias por invitarme a hacer parte de esto tan bonito. 👏👏👏',
+        foto: '/testimonios/paisalejo.webp',
+      },
+      {
+        nombre: '@leo98.gr',
+        rol: 'Instagram',
+        texto:
+          'Me siento orgulloso de haber asistido a uno de los primeros eventos de marketing de la ciudad. Ojalá lo sigan haciendo, en verdad todas las ponencias fueron oro puro.. 🙌👏',
+        foto: '/testimonios/leo98gr.webp',
+      },
+    ] as { nombre: string; rol: string; texto: string; foto: string | null }[],
     team: {
       heading: 'Conoce a tu equipo',
       lead: 'Cinco especialistas, un mismo objetivo: que salgas del bootcamp sabiendo ejecutar.',
@@ -378,42 +333,42 @@ export const site = {
           name: 'Paola Santacruz',
           role: 'Dirección General · Marca Personal · Copywriting',
           bio: 'Lidera cada proyecto con visión creativa y estratégica.', // TODO: validar bio con cliente
-          foto: null, // TODO: foto real
+          foto: '/team/paola-santacruz.webp',
         },
         {
-          name: 'Santiago', // TODO: confirmar apellido
+          name: 'Santiago Rivera',
           role: 'Inteligencia Artificial · Copywriting',
           bio: 'Aplica IA para producir contenido con estrategia y velocidad.', // TODO: validar bio con cliente
-          foto: null, // TODO: foto real
+          foto: '/team/santiago-rivera.webp',
         },
         {
-          name: 'María José', // TODO: confirmar apellido
+          name: 'María José Martínez',
           role: 'Modulación de voz',
           bio: 'Enseña a hablar frente a cámara con seguridad y presencia.', // TODO: validar bio con cliente
-          foto: null, // TODO: foto real
+          foto: '/team/maria-jose-martinez.webp',
         },
         {
-          name: 'David', // TODO: confirmar apellido
+          name: 'David Ordóñez',
           role: 'Edición',
           bio: 'Convierte grabaciones en videos con ritmo pensados para redes.', // TODO: validar bio con cliente
-          foto: null, // TODO: foto real
+          foto: '/team/david-ordonez.webp',
         },
         {
-          name: 'Francy', // TODO: confirmar apellido
+          name: 'Francy Vallejo',
           role: 'Canva',
           bio: 'Diseña piezas profesionales y enseña a hacerlo desde cero.', // TODO: validar bio con cliente
-          foto: null, // TODO: foto real
+          foto: '/team/francy-vallejo.webp',
         },
-      ],
+      ] as { name: string; role: string; bio?: string; foto: string | null }[],
     },
     venue: {
       heading: 'El lugar',
       nombre: 'V1501',
-      direccion: 'Dirección exacta por confirmar', // TODO: confirmar dirección con cliente
+      direccion: 'Cl 20 #33-60',
       ciudad: 'Pasto, Nariño',
       aperturaPuertas: 'Apertura de puertas 7:30 a. m.',
       mapsQuery: 'V1501 Pasto Nariño',
-      foto: null, // TODO: foto real del venue
+      foto: '/venue/hotel-v1501.webp',
     },
     faq: {
       heading: 'Preguntas frecuentes',
@@ -425,15 +380,11 @@ export const site = {
         },
         {
           q: '¿Cómo pago mi entrada?',
-          a: 'La compra se hace en línea por PassTix, con pasarela Bold: tarjetas, PSE, Nequi y Bancolombia. Es un pago seguro y recibes tu entrada al instante.',
+          a: 'La compra se hace en línea por PassTix, con pasarela Bold: tarjetas, PSE, Nequi y Bancolombia. Es un pago seguro.',
         },
         {
           q: '¿Qué diferencia al plan VIP?',
           a: 'Asiento preferencial en primera fila, acceso prioritario a los conferencistas y una asesoría privada 1 a 1 con Paola Santacruz al día siguiente. Son solo 20 cupos.',
-        },
-        {
-          q: '¿Y si no puedo asistir ese día?',
-          a: 'Escríbenos por WhatsApp antes del evento y buscamos la mejor solución para tu caso.',
         },
         {
           q: '¿Sirve si estoy empezando de cero?',
@@ -476,7 +427,7 @@ export const site = {
     description:
       'No manejamos redes, construimos resultados. Estrategia, contenido que vende y resultados medibles para tu marca en Pasto, Nariño.',
     url: 'https://978agencia.co',
-    ogImage: '/logo/og-cover.svg',
+    ogImage: '/logo/og-cover.png',
     locale: 'es_CO',
   },
 } as const;
@@ -486,7 +437,6 @@ export const WHATSAPP_URL = `https://wa.me/${site.contact.whatsapp.replace(/[^\d
 
 export type Site = typeof site;
 export type MethodologyStep = (typeof site.methodology.steps)[number];
-export type TeamMember = (typeof site.about.team)[number];
 export type NavItem = (typeof site.nav)[number];
 export type SocialLink = (typeof site.socials)[number];
 export type BootcampEvent = typeof site.bootcamp.event;
@@ -497,7 +447,4 @@ export type BootcampFaqItem = (typeof site.bootcamp.faq.items)[number];
 export type BootcampExperienceItem = (typeof site.bootcamp.experience.items)[number];
 export type BootcampQuickFact = (typeof site.bootcamp.quickFacts)[number];
 export type BootcampValorItem = (typeof site.bootcamp.valorStack.items)[number];
-export type BootcampBono = (typeof site.bootcamp.bonos)[number];
-export type BootcampMetrica = (typeof site.bootcamp.metricas)[number];
 export type BootcampTestimonio = (typeof site.bootcamp.testimonios)[number];
-export type BootcampGaleriaItem = (typeof site.bootcamp.galeria)[number];

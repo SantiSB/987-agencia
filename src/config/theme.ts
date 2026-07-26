@@ -33,7 +33,7 @@ export const colors = {
     glow: 'rgba(229,20,110,0.55)', // rim / emissive in 3D
   },
   gold: '#C4A24B', // secondary accent, minimal use (details / hover)
-  muted: '#6C6B63', // secondary text on cream
+  muted: '#64635C', // secondary text on cream (darkened from #6C6B63 for WCAG AA — was 4.29:1, now 4.83:1)
   // Bootcamp 978 event sub-brand — deep black / carbon / cream with a yellow
   // accent, distinct from the main rose/cream/black identity. Backgrounds
   // alternate black → carbon → cream for rhythm. Scoped to /bootcamp only.
@@ -48,7 +48,7 @@ export const colors = {
     line: '#2A2A2A', // hairlines on dark
     'line-cream': '#D8D4C7', // hairlines on cream
     'muted-dark': '#9A968C', // secondary text on dark
-    'muted-cream': '#6C6B63', // secondary text on cream
+    'muted-cream': '#64635C', // secondary text on cream (WCAG AA, see brand.muted)
   },
 } as const;
 

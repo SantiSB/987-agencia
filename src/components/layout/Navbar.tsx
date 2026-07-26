@@ -59,7 +59,6 @@ export function Navbar({ dark = false }: NavbarProps) {
         <a
           href="/"
           className="group flex items-baseline gap-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-          aria-label={`${site.brand.name} — inicio`}
         >
           <span
             className={cn(
@@ -77,6 +76,7 @@ export function Navbar({ dark = false }: NavbarProps) {
           >
             Agencia
           </span>
+          <span className="sr-only"> — inicio</span>
         </a>
 
         {/* Desktop nav */}

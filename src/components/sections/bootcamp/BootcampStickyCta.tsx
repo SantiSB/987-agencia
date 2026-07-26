@@ -3,11 +3,17 @@ import { site } from '@/config/site';
 import { useAtFooter } from '@/lib/useAtFooter';
 import { cn } from '@/lib/utils';
 
+interface BootcampStickyCtaProps {
+  /** Override the CTA target — needed where "#precios" isn't on the current
+   * page (e.g. the homepage), defaults to the in-page anchor used on /bootcamp. */
+  href?: string;
+}
+
 /**
  * BootcampStickyCta — fixed bottom bar keeping the enrollment CTA visible while
  * scrolling. Retracts once the footer is in view so it never overlaps it.
  */
-export function BootcampStickyCta() {
+export function BootcampStickyCta({ href }: BootcampStickyCtaProps) {
   const { event, hero } = site.bootcamp;
   const atFooter = useAtFooter();
 
@@ -26,7 +32,7 @@ export function BootcampStickyCta() {
           <p className="hidden text-xs text-bootcamp-white/60 sm:block">{event.venue}, {event.city}</p>
         </div>
         <a
-          href={hero.ctaPrimary.href}
+          href={href ?? hero.ctaPrimary.href}
           className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-pill bg-bootcamp-yellow px-5 font-sans text-sm font-semibold uppercase tracking-wide text-bootcamp-black transition-opacity hover:opacity-90 active:scale-[0.98]"
         >
           {hero.ctaPrimary.label}

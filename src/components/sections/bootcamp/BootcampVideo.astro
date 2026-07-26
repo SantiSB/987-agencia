@@ -1,10 +1,10 @@
 ---
 /**
  * BootcampVideo — "así se vive el Bootcamp 978" video slot, immediately after
- * the hero. Uses the VideoPlaceholder island until real footage exists.
+ * the hero. Native <video>: no JS island needed, just controls + a poster so
+ * nothing downloads until the visitor presses play.
  */
 import Container from '@/components/primitives/Container.astro';
-import { VideoPlaceholder } from '@/components/bootcamp/VideoPlaceholder';
 import { site } from '@/config/site';
 
 const { video } = site.bootcamp;
@@ -16,7 +16,16 @@ const { video } = site.bootcamp;
       {video.heading}
     </h2>
     <div class="mt-8">
-      <VideoPlaceholder client:visible microcopy={video.microcopy} />
+      <video
+        src={video.src}
+        poster={video.poster}
+        controls
+        preload="none"
+        playsinline
+        width={1280}
+        height={720}
+        class="aspect-video w-full rounded-md border border-bootcamp-line"
+      />
     </div>
   </Container>
 </section>

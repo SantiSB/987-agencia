@@ -19,10 +19,15 @@ export function VenueMap() {
           <img
             src={venue.foto}
             alt={`Lugar del evento: ${venue.nombre}`}
-            width={640}
-            height={360}
+            width={600}
+            height={800}
             loading="lazy"
-            className="aspect-video w-full rounded-md object-cover"
+            decoding="async"
+            // Source photo is a tall vertical shot of the tower (2:3) — a 16:9
+            // crop was cutting off the "V1501 HOTEL" sign at the top. 3:4 +
+            // object-top keeps the sign fully in frame and only trims some
+            // greenery at the bottom.
+            className="aspect-[3/4] w-full rounded-md object-cover object-top"
           />
         ) : (
           <PhotoPlaceholder ratio="video" label="Foto del lugar próximamente" />

@@ -10,7 +10,7 @@ import { Badge } from '@/components/primitives/Badge';
 import { Boxed } from '@/components/primitives/SectionHeading';
 import { Icon } from '@/components/primitives/Icon';
 import { HeroScene } from '@/components/three/HeroScene';
-import { site } from '@/config/site';
+import { site, WHATSAPP_URL } from '@/config/site';
 
 const { hero, brand } = site;
 ---
@@ -49,7 +49,7 @@ const { hero, brand } = site;
       </p>
 
       <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-        <Button href={hero.ctaPrimary.href} size="lg">
+        <Button href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" size="lg">
           {hero.ctaPrimary.label}
           <Icon name="arrowRight" size={18} />
         </Button>
@@ -63,10 +63,10 @@ const { hero, brand } = site;
   <!-- Scroll indicator -->
   <a
     href="#metodologia"
-    aria-label="Bajar a la metodología"
     class="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted transition-colors hover:text-accent"
   >
     <span class="font-sans text-[0.6rem] uppercase tracking-[0.3em]">Scroll</span>
+    <span class="sr-only"> a la metodología</span>
     <span class="animate-bounce"><Icon name="arrowDown" size={18} /></span>
   </a>
 </section>

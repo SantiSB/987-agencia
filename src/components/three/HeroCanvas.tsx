@@ -1,6 +1,10 @@
 import { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, MeshDistortMaterial } from '@react-three/drei';
+// Deep-imported (not from the '@react-three/drei' barrel): the barrel's index
+// pulls in its whole module graph regardless of named-import tree-shaking,
+// which was bloating this chunk to ~860kB for two small helpers.
+import { Float } from '@react-three/drei/core/Float';
+import { MeshDistortMaterial } from '@react-three/drei/core/MeshDistortMaterial';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { cssVar } from '@/lib/utils';

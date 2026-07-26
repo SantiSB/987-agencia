@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { useThreeCapability } from '@/lib/useThreeCapability';
 import { SceneFallback } from './SceneFallback';
+import { ThreeErrorBoundary } from './ThreeErrorBoundary';
 import { cn } from '@/lib/utils';
 
 // Lazy + client-only: the heavy WebGL bundle is fetched in the browser only,
@@ -17,6 +18,8 @@ interface HeroSceneProps {
  * Decides whether to run the live canvas:
  *   - Before hydration / reduced motion  → SceneFallback (static poster).
  *   - Otherwise                          → lazy HeroCanvas with a Suspense poster.
+ *   - WebGL context creation throws (disabled GPU, driver blocklist, etc.)
+ *     → ThreeErrorBoundary catches it and shows the same static poster.
  *
  * The hero headline lives in the Astro markup (not here), so text is never
  * blocked by the canvas.
@@ -27,9 +30,11 @@ export function HeroScene({ className }: HeroSceneProps) {
   return (
     <div className={cn('h-full w-full', className)}>
       {ready && canRender3D ? (
-        <Suspense fallback={<SceneFallback />}>
-          <HeroCanvas dpr={dpr} isMobile={isMobile} />
-        </Suspense>
+        <ThreeErrorBoundary fallback={<SceneFallback />}>
+          <Suspense fallback={<SceneFallback />}>
+            <HeroCanvas dpr={dpr} isMobile={isMobile} />
+          </Suspense>
+        </ThreeErrorBoundary>
       ) : (
         <SceneFallback />
       )}

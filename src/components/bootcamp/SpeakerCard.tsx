@@ -30,6 +30,7 @@ export function SpeakerCard({ member }: SpeakerCardProps) {
           width={400}
           height={533}
           loading="lazy"
+          decoding="async"
           className="aspect-[3/4] w-full object-cover"
         />
       ) : (

@@ -11,6 +11,36 @@
 @config '../../tailwind.config.ts';
 
 /* ---------------------------------------------------------------------------
+ * Fonts — self-hosted (latin subset only; covers Spanish diacritics, which
+ * all live in the U+00C0–00FF range). Replaces the Google Fonts stylesheet:
+ * removes 2 external origins + a render-blocking cross-origin CSS fetch.
+ * Archivo ships as a single variable file across its whole weight range.
+ * ------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/anton-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/archivo-variable.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-italic-400.woff2') format('woff2');
+}
+
+/* ---------------------------------------------------------------------------
  * CSS custom properties — mirror the values in src/config/theme.ts EXACTLY.
  * These are the runtime source for the 3D layer (read via getComputedStyle) and
  * any dynamic styling. If you change a value in theme.ts, mirror it here.
@@ -29,7 +59,7 @@
   --color-accent-300: #f06ca1;
   --color-accent-glow: rgba(229, 20, 110, 0.55);
   --color-gold: #c4a24b;
-  --color-muted: #6c6b63;
+  --color-muted: #64635c;
 
   /* Bootcamp 978 event sub-brand (scoped to /bootcamp) — mirror theme.ts */
   --color-bootcamp-black: #0a0a0a;

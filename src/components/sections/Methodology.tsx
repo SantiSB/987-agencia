@@ -1,8 +1,6 @@
 import { Reveal } from '@/components/primitives/Reveal';
 import { SectionHeading, Boxed } from '@/components/primitives/SectionHeading';
-import { Icon } from '@/components/primitives/Icon';
 import { site } from '@/config/site';
-import type { IconName } from '@/lib/icons';
 
 /**
  * Methodology (#metodologia) — cream section. The three steps render as editorial
@@ -29,7 +27,7 @@ export function Methodology() {
         <div className="mt-14">
           {methodology.steps.map((step, i) => (
             <Reveal key={step.n} delay={i * 0.1}>
-              <article className="grid grid-cols-[auto_1fr] items-start gap-x-6 gap-y-4 border-t border-bone-300 py-10 md:grid-cols-[auto_1fr_auto] md:gap-x-12 md:py-12">
+              <article className="grid grid-cols-[auto_1fr] items-start gap-x-6 gap-y-4 border-t border-bone-300 py-10 md:gap-x-12 md:py-12">
                 {/* Big number */}
                 <span className="font-display leading-none text-accent text-[clamp(2.5rem,8vw,5.5rem)]">
                   {step.n}
@@ -41,13 +39,6 @@ export function Methodology() {
                     <Boxed tone="ink">{step.title}</Boxed>
                   </h3>
                   <p className="mt-4 max-w-xl text-base text-muted md:text-lg">{step.text}</p>
-                </div>
-
-                {/* Line icon */}
-                <div className="col-span-2 md:col-span-1 md:justify-self-end">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-md border border-bone-300 text-ink transition-colors md:h-20 md:w-20">
-                    <Icon name={step.icon as IconName} size={36} strokeWidth={1.4} />
-                  </span>
                 </div>
               </article>
             </Reveal>

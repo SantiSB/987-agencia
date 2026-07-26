@@ -30,12 +30,55 @@ import { BootcampClose } from '@/components/sections/bootcamp/BootcampClose';
 import { BootcampStickyCta } from '@/components/sections/bootcamp/BootcampStickyCta';
 import { BootcampWhatsappFloat } from '@/components/sections/bootcamp/BootcampWhatsappFloat';
 import { site } from '@/config/site';
+import { getPlanPricing, checkoutUrl } from '@/lib/bootcamp';
 
 const { bootcamp } = site;
-const { pricing } = bootcamp;
+const { pricing, event, venue } = bootcamp;
+
+// Event structured data — every field below already exists in site.ts (real
+// event copy/pricing), just reshaped for Schema.org.
+const eventLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: `${event.name} · ${event.tagline}`,
+  startDate: event.dateISO,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  description: bootcamp.seo.description,
+  image: [new URL(bootcamp.seo.ogImage, site.seo.url).href],
+  location: {
+    '@type': 'Place',
+    name: venue.nombre,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: venue.direccion,
+      addressLocality: 'Pasto',
+      addressRegion: 'Nariño',
+      addressCountry: 'CO',
+    },
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: site.brand.name,
+    url: site.seo.url,
+  },
+  offers: bootcamp.planes.map((plan) => ({
+    '@type': 'Offer',
+    name: plan.nombre,
+    price: getPlanPricing(plan).current,
+    priceCurrency: 'COP',
+    availability: 'https://schema.org/InStock',
+    url: checkoutUrl(plan.id),
+  })),
+};
 ---
 
-<BaseLayout title={bootcamp.seo.title} description={bootcamp.seo.description}>
+<BaseLayout
+  title={bootcamp.seo.title}
+  description={bootcamp.seo.description}
+  image={bootcamp.seo.ogImage}
+>
+  <script slot="head" is:inline type="application/ld+json" set:html={JSON.stringify(eventLd)} />
   <Navbar client:load dark />
   <main id="contenido" class="pb-20 md:pb-24">
     <BootcampHero />
@@ -66,7 +109,7 @@ const { pricing } = bootcamp;
       <span>Sitio y venta de entradas por</span>
       <span class="font-semibold tracking-wide text-bone-50">PassTix</span>
       <span aria-hidden="true">·</span>
-      <span>tu tiquetera oficial</span>
+      <span>La ticketera digital de Nariño</span>
     </a>
   </Footer>
 

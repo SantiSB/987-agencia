@@ -15,9 +15,9 @@ export function ValueStack() {
 
   return (
     <div className="mx-auto max-w-2xl rounded-md border border-bootcamp-line bg-bootcamp-surface p-6 md:p-8">
-      <h3 className="font-display text-2xl uppercase text-bootcamp-white md:text-3xl">
+      <h2 className="font-display text-2xl uppercase text-bootcamp-white md:text-3xl">
         {valorStack.titulo}
-      </h3>
+      </h2>
 
       <ul className="mt-6 divide-y divide-bootcamp-line">
         {valorStack.items.map((row) => (

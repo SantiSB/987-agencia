@@ -36,6 +36,8 @@ const ogImage = new URL(image, site.seo.url).href;
 
     <!-- Favicon (placeholder — replace with brand mark, see public/logo/README.md) -->
     <link rel="icon" type="image/svg+xml" href="/logo/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -52,12 +54,16 @@ const ogImage = new URL(image, site.seo.url).href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts: Anton (display), Archivo (sans, variable), Instrument Serif (accent) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts: self-hosted (see global.css @font-face) — preload the 3 used
+         above the fold so there's no flash/layout shift on first paint. -->
+    <link rel="preload" href="/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,300..800;1,300..800&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="preload"
+      href="/fonts/instrument-serif-italic-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
 
     <!-- JSON-LD: local business structured data -->

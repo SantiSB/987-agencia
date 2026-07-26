@@ -1,11 +1,11 @@
 import { Reveal } from '@/components/primitives/Reveal';
 import { SpeakerCard } from '@/components/bootcamp/SpeakerCard';
+import { cn } from '@/lib/utils';
 import { site } from '@/config/site';
 
 /**
  * BootcampTeam (#equipo) — "conoce a tu equipo" with photo-slot SpeakerCards.
  * Credibility matters here because the VIP plan leans on the 1:1 with Paola.
- * Photos are pending, so cards render elegant monogram placeholders.
  */
 export function BootcampTeam() {
   const { team } = site.bootcamp;
@@ -22,7 +22,14 @@ export function BootcampTeam() {
 
         <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
           {team.members.map((member, i) => (
-            <Reveal key={member.name} delay={i * 0.06} variant="scaleIn" className="h-full">
+            <Reveal
+              key={member.name}
+              delay={i * 0.06}
+              variant="scaleIn"
+              // Featured first card spans both mobile columns so 5 cards on a
+              // 2-col grid don't leave a lone orphan in the last row.
+              className={cn('h-full', i === 0 && 'col-span-2 sm:col-span-1')}
+            >
               <SpeakerCard member={member} />
             </Reveal>
           ))}

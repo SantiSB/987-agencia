@@ -3,18 +3,26 @@
  * index.astro — composes the landing page in order.
  *
  * Island strategy:
- *  - Navbar        → client:load    (needs scroll state immediately)
- *  - Hero          → static markup + its own client:visible 3D island
- *  - Manifesto…Contact → client:visible (hydrate their Framer Motion / 3D as
+ *  - Navbar          → client:load    (needs scroll state immediately)
+ *  - Hero            → static markup + its own client:visible 3D island
+ *  - BootcampPromo   → static markup + its own client:visible countdown island
+ *  - Manifesto/Methodology → client:visible (hydrate their Framer Motion as
  *    they scroll into view; keeps initial JS light)
+ *  - BootcampStickyCta/BootcampWhatsappFloat → client:load (fixed UI, needs
+ *    to be interactive immediately). Both are the same components used on
+ *    /bootcamp — the sticky CTA's link is pointed at /bootcamp#precios since
+ *    "#precios" only exists on that page, and the WhatsApp float uses the
+ *    pink `tone` to match the homepage's accent instead of the bootcamp
+ *    black/yellow sub-brand.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { Navbar } from '@/components/layout/Navbar';
 import Hero from '@/components/sections/Hero.astro';
+import BootcampPromo from '@/components/sections/BootcampPromo.astro';
 import { Manifesto } from '@/components/sections/Manifesto';
 import { Methodology } from '@/components/sections/Methodology';
-import { About } from '@/components/sections/About';
-import { Contact } from '@/components/sections/Contact';
+import { BootcampStickyCta } from '@/components/sections/bootcamp/BootcampStickyCta';
+import { BootcampWhatsappFloat } from '@/components/sections/bootcamp/BootcampWhatsappFloat';
 import Footer from '@/components/layout/Footer.astro';
 ---
 
@@ -22,10 +30,11 @@ import Footer from '@/components/layout/Footer.astro';
   <Navbar client:load />
   <main id="contenido">
     <Hero />
+    <BootcampPromo />
     <Manifesto client:visible />
     <Methodology client:visible />
-    <About client:visible />
-    <Contact client:visible />
   </main>
   <Footer />
+  <BootcampStickyCta client:load href="/bootcamp#precios" />
+  <BootcampWhatsappFloat client:load tone="pink" />
 </BaseLayout>

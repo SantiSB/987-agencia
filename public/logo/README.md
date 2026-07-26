@@ -8,7 +8,10 @@ brand assets before shipping.
 | --------------- | --------------------------------- | ------------------------------------- |
 | `logo.svg`      | Header / footer lockup (fallback) | Official vector logo (SVG preferred)  |
 | `favicon.svg`   | Browser tab icon                  | Brand mark, square, 64×64+            |
-| `og-cover.svg`  | Social share preview (Open Graph) | Branded 1200×630 PNG/JPG              |
+| `og-cover.png`  | Social share preview (Open Graph) | Branded 1200×630 PNG/JPG              |
+
+`og-cover.png` is a rendered PNG (not SVG) because Facebook/LinkedIn/WhatsApp
+link previews don't reliably support SVG for `og:image`.
 
 ## How to replace
 
