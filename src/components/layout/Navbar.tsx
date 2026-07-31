@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { site, WHATSAPP_URL } from '@/config/site';
-import { Button } from '@/components/primitives/Button';
+import { site } from '@/config/site';
+import { buttonClasses } from '@/components/primitives/Button';
+import { WhatsappLink } from '@/components/primitives/WhatsappLink';
 import { cn } from '@/lib/utils';
 
 interface NavbarProps {
@@ -97,9 +98,9 @@ export function Navbar({ dark = false }: NavbarProps) {
         </ul>
 
         <div className="hidden md:block">
-          <Button href={WHATSAPP_URL} size="sm" target="_blank" rel="noopener noreferrer">
-            WhatsApp
-          </Button>
+          {/* buttonClasses() instead of <Button> so the WhatsApp CTA keeps the
+              exact primitive look while routing through WhatsappLink's tracking. */}
+          <WhatsappLink className={buttonClasses('primary', 'sm')}>WhatsApp</WhatsappLink>
         </div>
 
         {/* Mobile toggle */}
@@ -164,16 +165,12 @@ export function Navbar({ dark = false }: NavbarProps) {
                 </li>
               ))}
               <li className="pt-3">
-                <Button
-                  href={WHATSAPP_URL}
-                  size="md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full"
+                <WhatsappLink
+                  className={buttonClasses('primary', 'md', 'w-full')}
                   onClick={() => setOpen(false)}
                 >
                   Escríbenos por WhatsApp
-                </Button>
+                </WhatsappLink>
               </li>
             </ul>
           </motion.div>

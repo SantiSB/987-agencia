@@ -3,9 +3,11 @@ import { Icon } from '@/components/primitives/Icon';
 import { CountdownTimer } from '@/components/bootcamp/CountdownTimer';
 import { ScarcityBar } from '@/components/bootcamp/ScarcityBar';
 import { PaymentBadges } from '@/components/bootcamp/PaymentBadges';
+import { CheckoutLink } from '@/components/bootcamp/CheckoutLink';
 import { site } from '@/config/site';
 import type { BootcampPlan } from '@/config/site';
-import { checkoutUrl, formatCOP, getPlanPricing } from '@/lib/bootcamp';
+import { formatCOP, getPlanPricing } from '@/lib/bootcamp';
+import { useTrackOnceInView } from '@/lib/useTrackOnceInView';
 import { cn } from '@/lib/utils';
 
 function PlanCard({ plan }: { plan: BootcampPlan }) {
@@ -77,10 +79,8 @@ function PlanCard({ plan }: { plan: BootcampPlan }) {
       </ul>
 
       {/* Purchase CTA — deliberately loud (both plans) and routed to PassTix. */}
-      <a
-        href={checkoutUrl(plan.id)}
-        target="_blank"
-        rel="noopener noreferrer"
+      <CheckoutLink
+        planId={plan.id}
         className="group mt-8 inline-flex min-h-[58px] items-center justify-center gap-2 rounded-pill bg-bootcamp-yellow px-8 font-sans text-base font-bold uppercase tracking-wide text-bootcamp-black shadow-glow-yellow transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-bootcamp-yellow-600 active:translate-y-0 active:scale-[0.98]"
       >
         Comprar entrada {plan.nombre}
@@ -89,7 +89,7 @@ function PlanCard({ plan }: { plan: BootcampPlan }) {
           size={18}
           className="transition-transform duration-200 group-hover:translate-x-1"
         />
-      </a>
+      </CheckoutLink>
       <p className="mt-3 text-center text-xs text-bootcamp-muted-dark">
         {urgencia.avisoSubidaPrecio}
       </p>
@@ -111,9 +111,18 @@ interface PricingBlockProps {
  */
 export function PricingBlock({ id, heading }: PricingBlockProps) {
   const { pricing, planes, urgencia } = site.bootcamp;
+  // Shared key across both instances: whichever the visitor reaches first fires
+  // ViewContent, the other stays silent instead of inflating the metric.
+  const sectionRef = useTrackOnceInView<HTMLElement>('viewcontent:precios', 'ViewContent', {
+    content_name: 'Precios · Bootcamp 978',
+  });
 
   return (
-    <section id={id} className="scroll-mt-20 bg-bootcamp-black py-section-sm text-bootcamp-white">
+    <section
+      id={id}
+      ref={sectionRef}
+      className="scroll-mt-20 bg-bootcamp-black py-section-sm text-bootcamp-white"
+    >
       <div className="mx-auto w-full max-w-[64rem] px-6 md:px-10">
         <Reveal className="text-center">
           <span className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-bootcamp-yellow">

@@ -1,5 +1,6 @@
 import { site, WHATSAPP_URL } from '@/config/site';
 import type { BootcampPlan } from '@/config/site';
+import { getAttributionParams } from '@/lib/pixel';
 
 /**
  * bootcamp.ts — business logic for the /bootcamp landing, kept out of the UI
@@ -75,6 +76,33 @@ export function getCountdown(targetISO: string, now: Date = new Date()): Countdo
 export function checkoutUrl(planId: string): string {
   const { checkout } = site.bootcamp;
   return planId === 'vip' ? checkout.vip : checkout.general;
+}
+
+/**
+ * Same checkout URL, plus the Meta attribution params (`fbclid`/`_fbp`/`_fbc`)
+ * when they exist — our half of the bridge so PassTix can, later, credit the
+ * sale to the ad that produced it.
+ *
+ * Client-only by nature (it reads the URL and cookies); on the server it just
+ * returns the clean URL. `checkoutUrl()` above is deliberately left untouched
+ * because the Event/Offer JSON-LD in bootcamp.astro is generated at build time
+ * and must keep advertising the canonical, parameter-free URL.
+ */
+export function checkoutUrlWithAttribution(planId: string): string {
+  const base = checkoutUrl(planId);
+  const attribution = getAttributionParams();
+
+  const entries = Object.entries(attribution);
+  if (entries.length === 0) return base;
+
+  try {
+    const url = new URL(base);
+    for (const [key, value] of entries) url.searchParams.set(key, value);
+    return url.href;
+  } catch {
+    // Malformed base URL — better the plain link than a broken one.
+    return base;
+  }
 }
 
 /**

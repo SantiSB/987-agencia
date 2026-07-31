@@ -20,6 +20,10 @@ const {
 
 const canonical = new URL(Astro.url.pathname, site.seo.url).href;
 const ogImage = new URL(image, site.seo.url).href;
+
+// Meta Pixel. Static output ⇒ this value is baked in at build time; changing it
+// requires a rebuild + redeploy (see .env.example). Empty ⇒ nothing is emitted.
+const pixelId = import.meta.env.PUBLIC_META_PIXEL_ID;
 ---
 
 <!doctype html>
@@ -81,6 +85,55 @@ const ogImage = new URL(image, site.seo.url).href;
         sameAs: site.socials.map((s) => s.href),
       })}
     />
+
+    <!-- TODO: pendiente código de Guillermo -->
+    <!-- <meta name="facebook-domain-verification" content="PLACEHOLDER" /> -->
+
+    <!-- Meta Pixel — base snippet + PageView, covers every page using this layout -->
+    {
+      pixelId && (
+        <Fragment>
+          <script is:inline define:vars={{ pixelId }}>
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+            document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', pixelId);
+            fbq('track', 'PageView');
+          </script>
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style="display:none"
+              alt=""
+              src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
+            />
+          </noscript>
+        </Fragment>
+      )
+    }
+
+    {/* Contact event for WhatsApp links this layout's Astro pages render
+        (Hero.astro's primary CTA, the Footer social icon) — they have no React
+        onClick to hang it on. Anchors marked data-wa-tracked are handled by
+        WhatsappLink itself and skipped here, so clicks are never double-counted. */}
+    <script>
+      import { trackEvent } from '@/lib/pixel';
+
+      document.addEventListener(
+        'click',
+        (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+          const link = target.closest<HTMLAnchorElement>('a[href*="wa.me"]');
+          if (!link || link.dataset.waTracked !== undefined) return;
+          trackEvent('Contact', { source: 'delegated' });
+        },
+        true,
+      );
+    </script>
 
     <slot name="head" />
   </head>

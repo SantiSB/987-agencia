@@ -1,8 +1,9 @@
 import { Reveal } from '@/components/primitives/Reveal';
 import { Icon } from '@/components/primitives/Icon';
 import { CountdownTimer } from '@/components/bootcamp/CountdownTimer';
+import { CheckoutLink } from '@/components/bootcamp/CheckoutLink';
+import { WhatsappLink } from '@/components/primitives/WhatsappLink';
 import { site } from '@/config/site';
-import { checkoutUrl, whatsappQuestionUrl } from '@/lib/bootcamp';
 
 /**
  * BootcampClose (§5.16) — high-contrast final close that replaces the old form.
@@ -38,24 +39,20 @@ export function BootcampClose() {
 
         <Reveal delay={0.15}>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href={checkoutUrl('general')}
-              target="_blank"
-              rel="noopener noreferrer"
+            <CheckoutLink
+              planId="general"
               className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-pill bg-bootcamp-yellow px-8 font-sans text-base font-semibold uppercase tracking-wide text-bootcamp-black transition-all duration-200 ease-out hover:bg-bootcamp-yellow-600 active:scale-[0.98]"
             >
               {cierre.ctaPrimaryLabel}
               <Icon name="arrowRight" size={18} />
-            </a>
-            <a
-              href={whatsappQuestionUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
+            </CheckoutLink>
+            <WhatsappLink
+              question
               className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-pill border border-bootcamp-white/40 px-8 font-sans text-base font-semibold uppercase tracking-wide text-bootcamp-white transition-all duration-200 ease-out hover:bg-bootcamp-white hover:text-bootcamp-black active:scale-[0.98]"
             >
               <Icon name="whatsapp" size={18} />
               {cierre.ctaSecondaryLabel}
-            </a>
+            </WhatsappLink>
           </div>
         </Reveal>
       </div>

@@ -1,5 +1,5 @@
 import { Icon } from '@/components/primitives/Icon';
-import { whatsappQuestionUrl } from '@/lib/bootcamp';
+import { WhatsappLink } from '@/components/primitives/WhatsappLink';
 import { useAtFooter } from '@/lib/useAtFooter';
 import { cn } from '@/lib/utils';
 
@@ -20,10 +20,8 @@ export function BootcampWhatsappFloat({ tone = 'yellow' }: BootcampWhatsappFloat
   const atFooter = useAtFooter();
 
   return (
-    <a
-      href={whatsappQuestionUrl()}
-      target="_blank"
-      rel="noopener noreferrer"
+    <WhatsappLink
+      question
       aria-label="Escríbenos por WhatsApp si tienes una pregunta"
       className={cn(
         'fixed bottom-20 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-pill shadow-card transition-all duration-300 ease-out hover:scale-105 active:scale-95 md:bottom-24 md:right-8',
@@ -33,6 +31,6 @@ export function BootcampWhatsappFloat({ tone = 'yellow' }: BootcampWhatsappFloat
       )}
     >
       <Icon name="whatsapp" size={26} />
-    </a>
+    </WhatsappLink>
   );
 }
