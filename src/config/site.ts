@@ -401,7 +401,6 @@ export const site = {
       ],
     },
     checkout: {
-      // TODO: reemplazar con URLs reales de PassTix
       general: 'https://passtix.co/eventos/bootcamp-978',
       vip: 'https://passtix.co/eventos/bootcamp-978',
     },

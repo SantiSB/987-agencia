@@ -66,7 +66,6 @@ Pero esa función hoy es **puramente estática**: devuelve un string fijo leído
 ```ts
 // src/config/site.ts:403-407
 checkout: {
-  // TODO: reemplazar con URLs reales de PassTix
   general: 'https://passtix.co/eventos/bootcamp-978',
   vip: 'https://passtix.co/eventos/bootcamp-978',
 },
